@@ -1,0 +1,85 @@
+# include <stdio.h>
+void main()
+{
+    int q[20],n,rear=-1,front=-1,value,i,size,choice;
+    printf("ENTER THE SIZE OF QUEUE :\t");
+    scanf("%d",&size);
+    printf("\n=====MENU=====\n");
+    printf("1 : ENQUEUE , 2 : DEQUEUE , 3 : DISPLAY , 4 : EXIT \n");
+    while(1)
+    {
+        printf("\nENTER THE OPERATION :\t");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("\nENTER THE INSERT VALUE : ");
+            scanf("%d",&value);
+            if(front==(rear+1)%size)
+            {
+                printf("\nQUEUE IS FULL INSERTION NOT POSSIBLE");
+            }
+            else if(front==-1&&rear==-1)
+            {
+                rear=0;
+                front=0;
+                q[rear]=value;
+            }
+            else
+            {
+                rear=(rear+1)%size;
+                q[rear]=value;
+            }
+            break;
+            case 2:
+            if(rear==-1&&front==-1)
+            {
+                printf("\nQUEUE IS EMPTY\n");
+            }
+            else if(front==rear)
+            {
+                printf("\nTHE DELETE ELEMENT IS : %d",q[front]);
+                front=-1;
+                rear=-1;
+            }
+            else
+            {
+                printf("\nTHE DELETE ELEMENT IS : %d",q[front]);
+                front=(front+1)%size;
+            }
+            break;
+
+            case 3:
+            if(rear==-1&&front==-1)
+            {
+                printf("\nQUEUE IS EMPTY\n");
+            }
+            else if(front<=rear)
+            {
+                for(i=front;i<=rear;i++)
+                {
+                    printf(" %d ",q[i]);
+                }
+            }
+            else
+            {
+                for(i=front;i<size;i++)
+                {
+                    printf(" %d ",q[i]);
+                }
+                for(i=0;i<=rear;i++)
+                {
+                    printf(" %d ",q[i]);
+                }
+            }
+            break;
+            case 4:
+            printf("EXITING...");
+            return;
+            default :
+            printf("\nINVALID CHOICE PLESE ENTER CORRECT CHOICE\n");
+            break;
+        }
+    }
+}
+
