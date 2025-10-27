@@ -1,0 +1,169 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+
+struct node {
+    int data;
+    struct node *link;
+} *new, *head = NULL, *ptr, *temp, *curr, *prev;
+
+void insert_front(int item) {
+    new = (struct node *)malloc(sizeof(struct node));
+    new->data = item;
+    new->link = head;
+    head = new;
+}
+
+void insert_end(int item) {
+    new = (struct node *)malloc(sizeof(struct node));
+    new->data = item;
+    new->link = NULL;
+    if (head == NULL) {
+        head = new;
+    } else {
+        ptr = head;
+        while (ptr->link != NULL) {
+            ptr = ptr->link;
+        }
+        ptr->link = new;
+    }
+}
+
+void insert_specific(int item, int key) {
+    if (head == NULL) {
+        printf("\nElement not found. Insertion is not possible.");
+    } else {
+        ptr = head;
+        while (ptr->data != key && ptr->link != NULL) {
+            ptr = ptr->link;
+        }
+        if (ptr->data != key) {
+            printf("\nElement not found. Insertion is not possible.");
+        } else {
+            new = (struct node *)malloc(sizeof(struct node));
+            new->data = item;
+            new->link = ptr->link;
+            ptr->link = new;
+        }
+    }
+}
+
+void delete_front() {
+    if (head == NULL) {
+        printf("\nList is empty.");
+    } else {
+        temp = head;
+        head = head->link;
+        free(temp);
+    }
+}
+
+void delete_end() {
+    if (head == NULL) {
+        printf("\nList is empty.");
+    } else {
+        prev = head;
+        curr = head->link;
+        while (curr->link != NULL) {
+            prev = curr;
+            curr = curr->link;
+        }
+        prev->link = NULL;
+        free(curr);
+    }
+}
+
+void delete_specific(int key) {
+    if (head == NULL) {
+        printf("\nList is empty.");
+    } else if (head->link == NULL) {
+        if (head->data == key) {
+            temp = head;
+            head = NULL;
+            free(temp);
+        } else {
+            printf("\nElement not found. Deletion is not possible.");
+        }
+    } else if (head->data == key) {
+        delete_front();
+    } else {
+        prev = head;
+        curr = head->link;
+        while (curr->data != key && curr->link != NULL) {
+            prev = curr;
+            curr = curr->link;
+        }
+        if (curr->data == key) {
+            prev->link = curr->link;
+            free(curr);
+        } else {
+            printf("\nElement not found. Deletion is not possible.");
+        }
+    }
+}
+
+void display() {
+    if (head == NULL) {
+        printf("\nList is empty.");
+    } else {
+        ptr = head;
+        while (ptr != NULL) {
+            printf("\t%d", ptr->data);
+            ptr = ptr->link;
+        }
+    }
+}
+
+int main() {
+    int opt, item, key;
+    do {
+        printf("\nChoose an operation to perform:\n"
+               "(1) Insertion at front\n"
+               "(2) Insertion at end\n"
+               "(3) Insertion after a specific node\n"
+               "(4) Deletion at front\n"
+               "(5) Deletion at end\n"
+               "(6) Deletion of a specific node\n"
+               "(7) Display\n"
+               "(8) Exit\n");
+        scanf("%d", &opt);
+        switch (opt) {
+            case 1:
+                printf("\nEnter the item to be inserted at front: ");
+                scanf("%d", &item);
+                insert_front(item);
+                break;
+            case 2:
+                printf("\nEnter the item to be inserted at end: ");
+                scanf("%d", &item);
+                insert_end(item);
+                break;
+            case 3:
+                printf("\nEnter the element after which the item is to be inserted: ");
+                scanf("%d", &key);
+                printf("\nEnter the item to be inserted after %d: ", key);
+                scanf("%d", &item);
+                insert_specific(item, key);
+                break;
+            case 4:
+                delete_front();
+                break;
+            case 5:
+                delete_end();
+                break;
+            case 6:
+                printf("\nEnter the item to be deleted: ");
+                scanf("%d", &key);
+                delete_specific(key);
+                break;
+            case 7:
+                display();
+                break;
+            case 8:
+                break;
+            default:
+                printf("\nInvalid option.");
+        }
+    } while (opt != 8);
+    return 0;
+}
