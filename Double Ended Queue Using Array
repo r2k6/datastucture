@@ -1,0 +1,163 @@
+#include <stdio.h>
+int A[20], size, front, rear;
+void PUSH_DQ(int item)
+ {
+    int i;
+    if (front == 0 && rear == size - 1)
+    {
+        printf("Deque is FULL. Insertion not possible.\n");
+    }
+    else if (rear == -1)
+   {
+        front = 0;
+        rear = 0;
+        A[front] = item;
+    } 
+else if (front > 0) 
+   {
+        front--;
+        A[front] = item;
+    }  
+else if (rear < size - 1)
+   {
+        for (i = rear; i >= front; i--)
+            A[i + 1] = A[i];
+        A[front] = item;
+        rear++;
+    }
+else 
+   {
+        printf("Deque is FULL. Insertion not possible.\n");
+    }
+}
+void INJECT_DQ(int item) 
+{
+    int i;
+    if (front == 0 && rear == size - 1)
+    {
+        printf("Deque is FULL. Insertion not possible.\n");
+    }
+    else if (rear == -1)
+    {   
+        front = 0;
+        rear = 0;
+        A[rear] = item;
+     } 
+else if (rear < size - 1) 
+    {  
+        rear++;
+        A[rear] = item;
+     }  
+else if (front > 0) 
+    {   
+        for (i = front; i <= rear; i++)
+            A[i - 1] = A[i];
+        front--;   
+        A[rear] = item;
+     }
+else
+    {
+       printf("Deque is FULL. Insertion not possible.\n");
+    }
+}
+void POP_DQ() 
+{
+    if (front == -1)
+    {
+        printf("Deque is EMPTY\n");
+    }
+  else if (front == rear)
+    {
+        printf("Deleted item is %d\n", A[front]);
+        front = -1;
+        rear = -1;
+    }
+ else
+   {
+        printf("Deleted item is %d\n", A[front]);
+        front++;
+    }
+}
+void EJECT_DQ()
+ {
+    if (front == -1)
+    {
+        printf("Deque is EMPTY\n");
+    }
+  else if (front == rear) 
+    {
+        printf("Deleted item is %d\n", A[rear]);
+        front = -1;
+        rear = -1;
+    }
+ else
+    {
+        printf("Deleted item is %d\n", A[rear]);
+        rear--;
+    }
+}
+void DISPLAY_DQ() 
+{
+    int i;
+    if (front == -1)
+    {
+        printf("Queue is EMPTY\n");
+     }
+    else
+    {
+         printf("Queue is :\n");
+        for (i = front; i <= rear; i++)
+            printf("%d\t", A[i]);
+        printf("\n");
+    }
+}
+
+void main()
+ {
+    int item, opt;
+    front = -1;
+    rear = -1;
+    printf("Enter the size of the Deque: ");
+    scanf("%d", &size);
+    do 
+    {
+        printf("1. PUSH (Insert Front)\n");
+        printf("2. POP (Delete Front)\n");
+        printf("3. INJECT (Insert Rear)\n");
+        printf("4. EJECT (Delete Rear)\n");
+        printf("5. DISPLAY\n");
+        printf("6. EXIT\n");
+        printf("\nEnter the option : ");
+        scanf("%d", &opt);
+        switch (opt) 
+        {
+            case 1:
+                printf("Enter the item to be inserted: ");
+                scanf("%d", &item);
+                PUSH_DQ(item);
+                break;
+            case 2:
+                POP_DQ();
+                break;
+            case 3:
+                printf("Enter the item to be inserted: ");
+                scanf("%d", &item);
+                INJECT_DQ(item);
+                break;
+            case 4:
+                EJECT_DQ();
+                break;
+            case 5:
+                DISPLAY_DQ();
+                break;
+            case 6:
+                printf(“exiting…”);
+                break;
+            default:
+                printf("Invalid option...\n");
+        }
+    }
+ while (opt != 6);
+}
+
+
