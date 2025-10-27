@@ -1,0 +1,35 @@
+# include <stdio.h>
+void Binary_search(int a[],int low,int high,int search_data)
+{ int mid,flag=0;
+while(low<=high)
+{
+mid=(low+high)/2;
+if(a[mid]==search_data)
+{ flag=1; break;
+}
+else if(a[mid]>search_data)
+{
+high=mid-1;
+} else
+{
+low=mid+1;
+}
+}
+if(flag==0)
+{
+printf("\nSEARCH DATA NOT FOUND");
+} else
+{
+printf("\nSERACH DATA FOUND AT INDEX %d",mid);
+}
+}
+void main()
+{
+int a[20],i,n,search_data; printf("ENTER THE SIZE OF THE ARRAY\t");
+scanf("%d",&n);
+printf("ENTER THE ARRAY ELEMENTS IN ASCENDING ORDER\n"); for(i=0;i<n;i++)
+{
+scanf("%d",&a[i]);
+}
+printf("\nENTER THE SEARCH DATA\t"); scanf("%d",&search_data); Binary_search(a,0,n-1,search_data);
+}
