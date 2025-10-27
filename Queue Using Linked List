@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node {
+    int data;
+    struct node *link;
+} *front = NULL, *rear = NULL, *ptr, *temp, *New;
+
+void LEnqueue() {
+    int x;
+    New = (struct node *)(malloc(sizeof(struct node)));
+    printf("Enter item to insert: ");
+    scanf("%d", &x);
+    if (front == NULL) {
+        New->data = x;
+        New->link = NULL;
+        front = New;
+        rear = New;
+    } else {
+        New->data = x;
+        New->link = NULL;
+        rear->link = New;
+        rear = New;
+    }
+}
+
+void LDequeue() {
+    if (front == NULL) {
+        printf("\nQueue is Empty!");
+    } else if (front->link == NULL) {
+        printf("Dequeued item is %d", front->data);
+        temp = front;
+        front = NULL;
+        rear = NULL;
+        free(temp);
+    } else {
+        printf("Dequeued item is %d", front->data);
+        temp = front;
+        front = front->link;
+        free(temp);
+    }
+}
+
+void LQDisp() {
+    printf("\n");
+    if (front == NULL) {
+        printf("Queue is Empty!");
+    } else {
+        ptr = front;
+        while (ptr->link != NULL) {
+            printf(" %d -->", ptr->data);
+            ptr = ptr->link;
+        }
+        printf(" %d\n", ptr->data);
+    }
+}
+
+void main() {
+    int c;
+    do {
+        printf("\nChoose an Opt;\n
+1.ENQUEUE\n2.DEQUEUE\n3.DISPLAY\n4.EXIT\n");
+        scanf("%d", &c);
+        switch (c) {
+            case 1:
+                LEnqueue();
+                break;
+            case 2:
+                LDequeue();
+                break;
+            case 3:
+                LQDisp();
+                break;
+            case 4:
+                break;
+            default:
+                printf("Invalid option");
+        }
+    } while (c != 4);
+}
