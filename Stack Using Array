@@ -1,0 +1,64 @@
+#include<stdio.h>
+int stack[100],top=-1,item,size,c;
+void push() 
+ {
+  int i;
+  if(top==size-1) 
+     printf("**stack is full**\n");
+  else 
+{
+    printf("enter the elements in the stack:\t");
+    for(i=0;i<size;i++)  
+  {
+    scanf("%d",&item);
+    stack[i]=item;
+     top++;
+    }  
+  } 
+}
+void pop() 
+{
+   if(top==-1)
+     printf("**stack is  empty**\n");
+  else  
+{
+    printf("%d poped out from stack\n",stack[top]);
+    top--;
+  } 
+}
+void display() 
+{
+  if(top==-1)
+    printf("**stack is empty**\n");
+  else  
+{
+     printf("the stack is :");
+     for(int i=0;i<=top;i++)
+     {
+       printf("%d\t",stack[i]);
+      }  
+}
+ }
+int main()
+{
+printf("enter the size of stack:");
+scanf("%d",&size);
+  while(1) 
+ {
+   printf("\n----stack menu------\n1.push\n2.pop\n3.display\n4.exit\n");
+   printf("enter the choice :");
+   scanf("%d",&c);
+    switch(c)
+    {
+    case 1:   push();
+              break;
+    case 2: pop();
+              break;
+    case 3:display();
+              break;
+    case 4: printf("EXITING");
+                   return 0;
+    default:printf("invalid");
+     } 
+   } 
+ }
