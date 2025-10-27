@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+
+struct node {
+    int data;
+    struct node *link;
+} *new, *ptr, *temp, *top = NULL;
+
+void push(int item) {
+    new = (struct node *)malloc(sizeof(struct node));
+    new->data = item;
+    new->link = top;
+    top = new;
+}
+
+void pop() {
+    if (top == NULL) {
+        printf("\nStack is Empty.");
+    } else {
+        temp = top;
+        printf("\nPopped item is: %d", top->data);
+        top = top->link;
+        free(temp);
+    }
+}
+
+void display() {
+    if (top == NULL) {
+        printf("\nStack is Empty.");
+    } else {
+        ptr = top;
+        while (ptr != NULL) {
+            printf("\t%d", ptr->data);
+            ptr = ptr->link;
+        }
+    }
+}
+
+void main() {
+    int opt, item, key;
+    do {
+        printf("\nChoose an operation to perform\n"
+               "(1) PUSH\n"
+               "(2) POP\n"
+               "(3) Display\n"
+               "(4) Exit\n");
+        scanf("%d", &opt);
+        switch (opt) {
+            case 1:
+                printf("\nEnter the item to be pushed: ");
+                scanf("%d", &item);
+                push(item);
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                break;
+            default:
+                printf("\nInvalid option.");
+        }
+    } while (opt != 4);
+}
+
+
+
+
+
+
